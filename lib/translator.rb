@@ -1,27 +1,10 @@
-def load_library(library)
-  new_hash = {
-   "get_meaning" => {},
-   "get_emoticon" => {}
- }
- library.each do |meaning, translation|
-   english = translation[0]
-   japanese = translation[1]
-   new_hash["get_meaning"][japanese] = meaning
-   new_hash["get_emoticon"][english] = japanese
- end
-  return new_hash
-end
-
-
-def get_japanese_emoticon(file_path, emoticon)
-  library = load_library(file_path)
-  library["get_emoticon"].each do |key, value|
-    if key == emoticon
-      puts value
-    end
+def load_library(file)
+ emoticons = YAML.load_file(file)
+  emoticon_hash["get_emoticon"] = Hash.new
+  emoticon_hash["get_meaning"] = Hash.new
+  emoticons.each do |english_word, emoticon_set|
+    emoticon_hash["get_emoticon"][emoticon_set.first] = emoticon_set.last
+    emoticon_hash["get_meaning"][emoticon_set.last] = english_word
   end
+  emoticon_hash
 end
-
-test_emoticons = {"angel"=>["O:)", "japanese_angel"], "angry"=>[">:(", "japanese_angry"], "bored"=>[":O", "japanese_bored"], "confused"=>["%)", "japanese_confused"]}
-
-load_library(test_emoticons)
