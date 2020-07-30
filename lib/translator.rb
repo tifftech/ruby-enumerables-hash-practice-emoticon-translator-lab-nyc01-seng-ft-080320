@@ -5,3 +5,5 @@ def load_library(path)
     emoticons["get_meaning"][jan] = meaning
      emoticons["get_emoticon"][eng] = jan
    end
+   emoticons
+ end
